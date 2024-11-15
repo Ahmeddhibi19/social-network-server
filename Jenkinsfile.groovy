@@ -3,6 +3,7 @@ pipeline {
     tools {
         jdk 'jdk17'
         maven 'maven'
+        git 'git'
     }
 
     environment {
@@ -18,22 +19,11 @@ pipeline {
         githubPush()
     }
 
-    stages {
-        stage('Checkout Code') {
-            steps {
-                // Check out the code from the GitHub repository
-                checkout([
-                        $class: 'GitSCM',
-                        branches: [[name: '*/master']],
-                        doGenerateSubmoduleConfigurations: false,
-                        extensions: [],
-                        userRemoteConfigs: [[
-                                                    url: 'https://github.com/Ahmeddhibi19/social-network-server.git',
-                                                    credentialsId: 'github-credentials-id'
-                                            ]]
-                ])
-            }
+    stage('Git Checkout') {
+        steps {
+            git branch: 'main', credentialsId: 'github-credentials-id', url: 'https://github.com/Ahmeddhibi19/social-network-server.git'
         }
+    }
 
         stage('Start MySQL Container') {
             steps {
