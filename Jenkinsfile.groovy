@@ -29,9 +29,11 @@ pipeline {
             steps {
                 script {
                     sh """
-            docker run -d --name mysql-container -e MYSQL_ROOT_PASSWORD=admin \
-            -e MYSQL_USER=root -e MYSQL_PASSWORD=admin \
-            -e MYSQL_DATABASE=social -p 3306:3306 mysql:8
+            docker run -d --name mysql-container \\
+          -e MYSQL_ROOT_PASSWORD=admin \\
+          -e MYSQL_DATABASE=social \\
+          -p 3306:3306 mysql:8
+
             """
                 }
             }
