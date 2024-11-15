@@ -36,34 +36,34 @@ pipeline {
                 }
             }
         }
-        stage ('deb'){
-            steps {
-                script {
-                    // You can use the environment variables directly
-                    echo "MySQL Username: ${MYSQL_USERNAME}"
-                    //echo "MySQL Password: [MASKED]"  // Masking sensitive data in the logs
-                }
-            }
-        }
+//        stage ('deb'){
+//            steps {
+//                script {
+//                    // You can use the environment variables directly
+//                    echo "MySQL Username: ${MYSQL_USERNAME}"
+//                    //echo "MySQL Password: [MASKED]"  // Masking sensitive data in the logs
+//                }
+//            }
+//        }
 
 
         stage('Build Spring Boot Application') {
             steps {
+                script {
+                    echo "Running Maven command: mvn clean package -Dspring.datasource.username=${MYSQL_USERNAME} -Dspring.datasource.password=${MYSQL_PASSWORD} -Djwt.secret=${JWT_SECRET} -Dspring.mail.username=${EMAIL_USERNAME} -Dspring.mail.password=${EMAIL_PASSWORD}"
+                }
                 sh 'chmod +x ./mvnw'
                 sh """
-    mvn clean package -Dspring.datasource.username=${MYSQL_USERNAME} \
-    -Dspring.datasource.password=${MYSQL_PASSWORD} \
-    -Djwt.secret=${JWT_SECRET} \
-    -Dspring.mail.username=${EMAIL_USERNAME} \
-    -Dspring.mail.password=${EMAIL_PASSWORD}
-"""
-
-                //sh './mvnw clean package -Dspring.datasource.username=**** -Dspring.datasource.password=**** -Djwt.secret=**** -Dspring.mail.username=**** -Dspring.mail.password=****\n'
-
-
-
+            mvn clean package \
+            -Dspring.datasource.username=${MYSQL_USERNAME} \
+            -Dspring.datasource.password=${MYSQL_PASSWORD} \
+            -Djwt.secret=${JWT_SECRET} \
+            -Dspring.mail.username=${EMAIL_USERNAME} \
+            -Dspring.mail.password=${EMAIL_PASSWORD}
+        """
             }
         }
+
     }
 
     post {
