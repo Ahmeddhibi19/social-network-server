@@ -39,6 +39,7 @@ pipeline {
 
         stage('Build Spring Boot Application') {
             steps {
+                sh 'chmod +x ./mvnw'
                 sh """
                 ./mvnw clean package -Dspring.datasource.username=${MYSQL_USERNAME} \
                 -Dspring.datasource.password=${MYSQL_PASSWORD} \
