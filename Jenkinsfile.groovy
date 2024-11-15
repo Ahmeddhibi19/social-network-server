@@ -41,11 +41,12 @@ pipeline {
             steps {
                 sh 'chmod +x ./mvnw'
                 sh """
-                ./mvnw clean package -Dspring.datasource.username=${MYSQL_USERNAME} \
-                -Dspring.datasource.password=${MYSQL_PASSWORD} \
-                -Djwt.secret=${JWT_SECRET} \
-                -Dspring.mail.username=${EMAIL_USERNAME} \
+                ./mvnw clean package -Dspring.datasource.username=${MYSQL_USERNAME} \\
+                -Dspring.datasource.password=${MYSQL_PASSWORD} \\
+                -Djwt.secret=${JWT_SECRET} \\
+                -Dspring.mail.username=${EMAIL_USERNAME} \\
                 -Dspring.mail.password=${EMAIL_PASSWORD}
+
                 """
             }
         }
