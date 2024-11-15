@@ -14,7 +14,7 @@ COPY . .
 RUN mvn clean package -DskipTests
 
 # Expose the port your Spring Boot application runs on
-EXPOSE 8080
+EXPOSE 8081
 
 # Run the Spring Boot application
 CMD ["java", "-jar", "target/Social-App-0.0.1-SNAPSHOT.jar"]
