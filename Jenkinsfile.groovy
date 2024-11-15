@@ -53,14 +53,8 @@ pipeline {
                     echo "Running Maven command: mvn clean package -Dspring.datasource.username=${MYSQL_USERNAME} -Dspring.datasource.password=${MYSQL_PASSWORD} -Djwt.secret=${JWT_SECRET} -Dspring.mail.username=${EMAIL_USERNAME} -Dspring.mail.password=${EMAIL_PASSWORD}"
                 }
                 sh 'chmod +x ./mvnw'
-                sh """
-            mvn clean package -X \
-            -Dspring.datasource.username=${MYSQL_USERNAME} \
-            -Dspring.datasource.password=${MYSQL_PASSWORD} \
-            -Djwt.secret=${JWT_SECRET} \
-            -Dspring.mail.username=${EMAIL_USERNAME} \
-            -Dspring.mail.password=${EMAIL_PASSWORD}
-        """
+                sh 'mvn clean package -X -Dspring.datasource.username=${MYSQL_USERNAME} -Dspring.datasource.password=${MYSQL_PASSWORD} -Djwt.secret=${JWT_SECRET} -Dspring.mail.username=${EMAIL_USERNAME} -Dspring.mail.password=${EMAIL_PASSWORD}'
+
             }
         }
 
