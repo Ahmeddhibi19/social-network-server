@@ -3,7 +3,7 @@ pipeline {
     tools {
         jdk 'jdk17'
         maven 'maven'
-        git 'git'
+        git 'Default'
     }
 
     environment {
