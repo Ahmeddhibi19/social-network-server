@@ -24,7 +24,7 @@ pipeline {
                         doGenerateSubmoduleConfigurations: false,
                         extensions: [],
                         userRemoteConfigs: [[
-                                                    url: 'https://github.com/your-repo-url/Social-App.git',
+                                                    url: 'https://github.com/Ahmeddhibi19/social-network-server.git',
                                                     credentialsId: 'github-credentials-id'
                                             ]]
                 ])
