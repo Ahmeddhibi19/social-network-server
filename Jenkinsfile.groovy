@@ -29,8 +29,8 @@ pipeline {
             steps {
                 script {
                     sh """
-                    docker run -d --name mysql-container -e MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD} \
-                    -e MYSQL_USER=${MYSQL_USERNAME} -e MYSQL_PASSWORD=${MYSQL_PASSWORD} \
+                    docker run -d --name mysql-container -e MYSQL_ROOT_PASSWORD=${env.MYSQL_PASSWORD} \
+                    -e MYSQL_USER=${env.MYSQL_USERNAME} -e MYSQL_PASSWORD=${env.MYSQL_PASSWORD} \
                     -e MYSQL_DATABASE=social -p 3306:3306 mysql:8
                     """
                 }
@@ -50,11 +50,10 @@ pipeline {
         stage('Build Spring Boot Application') {
             steps {
                 script {
-                    echo "Running Maven command: mvn clean package -Dspring.datasource.username=${MYSQL_USERNAME} -Dspring.datasource.password=${MYSQL_PASSWORD} -Djwt.secret=${JWT_SECRET} -Dspring.mail.username=${EMAIL_USERNAME} -Dspring.mail.password=${EMAIL_PASSWORD}"
+                    echo "Running Maven command: mvn clean package -Dspring.datasource.username=${env.MYSQL_USERNAME} -Dspring.datasource.password=${env.MYSQL_PASSWORD} -Djwt.secret=${env.JWT_SECRET} -Dspring.mail.username=${env.EMAIL_USERNAME} -Dspring.mail.password=${env.EMAIL_PASSWORD}"
                 }
                 //sh 'chmod +x ./mvnw'
-                sh 'mvn clean package -e -Dspring.datasource.username=${MYSQL_USERNAME} -Dspring.datasource.password=${MYSQL_PASSWORD} -Djwt.secret=${JWT_SECRET} -Dspring.mail.username=${EMAIL_USERNAME} -Dspring.mail.password=${EMAIL_PASSWORD}'
-
+                sh "mvn clean package -Dspring.datasource.username=${env.MYSQL_USERNAME} -Dspring.datasource.password=${env.MYSQL_PASSWORD} -Djwt.secret=${env.JWT_SECRET} -Dspring.mail.username=${env.EMAIL_USERNAME} -Dspring.mail.password=${env.EMAIL_PASSWORD}"
             }
         }
 
