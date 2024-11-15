@@ -54,7 +54,7 @@ pipeline {
                 script {
                     sh "docker logs mysql-container"
                     echo "Running Maven command: mvn clean package -Dspring.datasource.username=${env.MYSQL_USERNAME} -Dspring.datasource.password=${env.MYSQL_PASSWORD} -Djwt=${env.JWT_SECRET} -Dspring.mail.username=${env.EMAIL_USERNAME} -Dspring.mail.password=${env.EMAIL_PASSWORD}"
-                    sh "mvn clean package -DskipTests -q"
+                    sh "mvn clean package -DskipTests"
                 }
             }
         }
