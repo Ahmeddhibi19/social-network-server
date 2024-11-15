@@ -18,12 +18,12 @@ pipeline {
         // Trigger pipeline on changes pushed to the master branch
         githubPush()
     }
-
-    stage('Git Checkout') {
-        steps {
-            git branch: 'main', credentialsId: 'github-credentials-id', url: 'https://github.com/Ahmeddhibi19/social-network-server.git'
+    stages {
+        stage('Git Checkout') {
+            steps {
+                git branch: 'main', credentialsId: 'github-credentials-id', url: 'https://github.com/Ahmeddhibi19/social-network-server.git'
+            }
         }
-    }
 
         stage('Start MySQL Container') {
             steps {
