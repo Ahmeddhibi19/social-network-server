@@ -54,7 +54,7 @@ pipeline {
                 }
                 sh 'chmod +x ./mvnw'
                 sh """
-            mvn clean package \
+            mvn clean package -X \
             -Dspring.datasource.username=${MYSQL_USERNAME} \
             -Dspring.datasource.password=${MYSQL_PASSWORD} \
             -Djwt.secret=${JWT_SECRET} \
