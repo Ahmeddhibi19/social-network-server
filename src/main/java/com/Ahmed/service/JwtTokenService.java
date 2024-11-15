@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class JwtTokenService {
-    @Value("jwt.secret")
+    @Value("jwt")
     private String jwtSecret;
 
     public String generateToken(UserPrincipal userPrincipal) {
