@@ -12,6 +12,8 @@ pipeline {
         JWT_SECRET = credentials('jwt-secret')
         EMAIL_USERNAME = credentials('email-username')
         EMAIL_PASSWORD = credentials('email-password')
+        ANSIBLE_SERVER_IP = '20.106.202.45'  // IP of the Ansible server
+        GITHUB_REPO = 'https://github.com/Ahmeddhibi19/manifestes.git'
     }
 
     triggers {
@@ -73,6 +75,19 @@ pipeline {
                     withDockerRegistry([credentialsId: 'dockerhub-credentials', url: 'https://index.docker.io/v1/']) {
                         sh "docker push ahmeddhibi/social-app:latest"
                     }
+                }
+            }
+        }
+
+        stage('Clone Manifests Repo on Ansible Server') {
+            steps {
+                script {
+                    echo "Cloning the 'manifests' repo on the Ansible server..."
+                    sh """
+            ssh -o StrictHostKeyChecking=no azureuser@${ANSIBLE_SERVER_IP} '
+                git clone ${GITHUB_REPO} /home/azureuser/manifests || (cd /home/azureuser/manifests && git pull)
+            '
+            """
                 }
             }
         }
