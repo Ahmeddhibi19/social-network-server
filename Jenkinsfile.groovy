@@ -63,6 +63,7 @@ pipeline {
             steps {
                 script {
                     sh "docker build -t social-app:latest ."
+                    sh "docker tag social-app:latest ahmeddhibi/social-app:latest"
                 }
             }
         }
