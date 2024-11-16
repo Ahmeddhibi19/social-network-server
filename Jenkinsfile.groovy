@@ -84,7 +84,7 @@ pipeline {
                 script {
                     echo "Cloning the 'manifests' repo on the Ansible server..."
                     sh """
-            ssh -o StrictHostKeyChecking=no azureuser@${ANSIBLE_SERVER_IP} '
+            ssh azureuser@${ANSIBLE_SERVER_IP} '
                 git clone ${GITHUB_REPO} /home/azureuser/manifests || (cd /home/azureuser/manifests && git pull)
             '
             """
