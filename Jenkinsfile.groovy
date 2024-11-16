@@ -59,6 +59,26 @@ pipeline {
             }
         }
 
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    sh "docker build -t social-app:latest ."
+                }
+            }
+        }
+        stage('Push Docker Image to Docker Hub') {
+            steps {
+                script {
+                    withDockerRegistry([credentialsId: 'dockerhub-credentials', url: 'https://index.docker.io/v1/']) {
+                        sh "docker push ahmeddhibi/social-app:latest"
+                    }
+                }
+            }
+        }
+
+
+
+
     }
 
     post {
